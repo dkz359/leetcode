@@ -53,7 +53,7 @@ public class SearchInRotatedSortedArray{
         Solution solution = new SearchInRotatedSortedArray().new Solution();
         // int[] nums = new int[]{4,5,6,7,0,1,2};
         int[] nums = new int[]{3,1};
-        System.out.println(solution.search(nums, 1));
+        System.out.println(solution.search(nums, 2));
     }
 
 //leetcode submit region begin(Prohibit modification and deletion)
@@ -61,12 +61,15 @@ class Solution {
     public int search(int[] nums, int target) {
         int low = 0,high = nums.length-1;
         while (low <= high){
-            int mid = low + ((high-low)>>1);
+            // 取的mid靠左，下面就要用<=
+            // int mid = low + ((high-low)>>1);
+            // if(nums[low] <= nums[mid])
+            int mid = low + ((high-low+1)>>1);
             if(nums[mid] == target){
                 return mid;
             }
             // 判断分出的两个区间那个有序
-            if(nums[low] <= nums[mid]){
+            if(nums[low] < nums[mid]){
                 // 左边有序，判断target在不在左边
                 if(nums[mid] > target && nums[low] <= target){
                     high = mid - 1;
